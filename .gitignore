@@ -6,6 +6,12 @@ __pycache__/
 # C extensions
 *.so
 
+#Data preprocessing 
+raw_data/ 
+cleaned_data/ 
+short_data/ 
+sorted_data/ 
+
 # Distribution / packaging
 .Python
 build/
