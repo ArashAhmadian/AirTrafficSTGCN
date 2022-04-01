@@ -10,8 +10,8 @@ __pycache__/
 raw_data/ 
 cleaned_data/ 
 short_data/ 
-sorted_data/ 
-
+sorted_data/
+STGCN/output 
 # Distribution / packaging
 .Python
 build/
