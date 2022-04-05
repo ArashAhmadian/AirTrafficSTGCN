@@ -44,13 +44,13 @@ def plotEdge(firstCoordinate, secondCoordinate, edgeTraffic, minTraffic, maxTraf
 #pd.DataFrame(b[:,2,:]).to_csv('Files/RouteActual3.csv')
 #pd.DataFrame(b[:,3,:]).to_csv('Files/RouteActual4.csv')
 #pd.DataFrame(b[:,4,:]).to_csv('Files/RouteActual5.csv')
-
-#c = np.load("Files/testset_MAPE_mean.npy")
-#pd.DataFrame(c).to_csv('Files/MeanErrorPerEdge.csv')
+#
+# c = np.load("Files/testset_MAPE_mean.npy")
+# pd.DataFrame(c).to_csv('Files/testset_RMSE.csv')
 
 predictedTraffic = np.load("Files/testset_predictions_all_samples.npy")
 actualTraffic = np.load("Files/testset_predictions_gtruths_all_samples.npy")
-errorPerEdge = np.load("Files/testset_MAPE_mean.npy")
+errorPerEdge = np.loadtxt("Files/testset_RMSE.csv", delimiter=',')
 
 airportCoordinateReader = pd.read_csv("Files/Airport_to_Coordinates.csv", delimiter=',', skiprows=0, low_memory=False)
 airportConnectionReader = pd.read_csv("Files/Airport_Connections_coordinates.csv", delimiter=',', skiprows=0, low_memory=False)
@@ -102,7 +102,7 @@ for i in range(len(airportConnectionNames)):
             plotEdge(airportXYCoordinates[findAirportIndex(airportConnectionNames[i][0], airportNameReader)], airportXYCoordinates[findAirportIndex(airportConnectionNames[i][1], airportNameReader)], arrayToBePlotted[timeStep, predictionStep, i], np.nanmin(arrayToBePlotted[timeStep, predictionStep]), np.nanmax(arrayToBePlotted[timeStep, predictionStep]))
         elif decision == 2:
             arrayToBePlotted[predictionStep, i] = arrayToBePlotted[predictionStep, i] * (10 ** DECIMAL_TO_INT_FACTOR)
-            plotEdge(airportXYCoordinates[findAirportIndex(airportConnectionNames[i][0], airportNameReader)], airportXYCoordinates[findAirportIndex(airportConnectionNames[i][1], airportNameReader)], int(arrayToBePlotted[predictionStep, i]), 0, (10 ** DECIMAL_TO_INT_FACTOR))
+            plotEdge(airportXYCoordinates[findAirportIndex(airportConnectionNames[i][0], airportNameReader)], airportXYCoordinates[findAirportIndex(airportConnectionNames[i][1], airportNameReader)], int(arrayToBePlotted[predictionStep, i]), np.nanmin(arrayToBePlotted[predictionStep]), np.nanmax(arrayToBePlotted[predictionStep]))
 
         airportsToBePlotted.append(airportConnectionNames[i][0])
         airportsToBePlotted.append(airportConnectionNames[i][1])
